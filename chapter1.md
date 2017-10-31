@@ -14,11 +14,19 @@ first will cover observables the source of all data and the core that we will wo
 
 Furthermore, we will describe the life cycle of Observable and what's happenin to an object that travel throw the Observable stream. we will briefly go throw the **Flowable **- the big brother of the observable that know's how to handle big amount of data with high rates of publishing.
 
-## Observables
+## Observables - Rivers
 
-The stream starts with an **Observable**. must of the time it will be your best friends as long as we speak on data streams. we can have many Observables that combine to one, basiclly 
+The stream starts with an **Observable**. must of the time it will be your best friends as long as we speak on data streams. we can have many Observables that combine to one, Basiclly, it's a universal interface to create data streams in a reactive way of programming.
 
-#### Hot and Cold winds
+The easiest why to start using Rx with existing data is use the just\(\) method and wrap that data like so:
+
+```
+Observable.just("Honda", "Yamaha")
+```
+
+This observable will not emitting data right now because we don't call the .subscribe\(\) method to it.
+
+#### Hot and Cold Winds
 
 Cold Observables are the most used Observable type. For example, one can be created with the following code:
 
@@ -57,7 +65,11 @@ must of the time we will want to dispose on the **onDestroy** method of the **Ac
 
 ## Schedulers
 
-What Schedulers means is where the code will actually be executed and usually on what Thread.
+What Schedulers means is where the code will actually be executed and usually and on what Thread. most of the cases Subscribers are used to executing long-running tasks on the some background thread so that it 
+
+
+
+
 
 ## Flowable
 
