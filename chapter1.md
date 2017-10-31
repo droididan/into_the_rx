@@ -65,13 +65,41 @@ must of the time we will want to dispose on the **onDestroy** method of the **Ac
 
 ## Schedulers
 
-What Schedulers means is where the code will actually be executed and usually and on what Thread. most of the cases Subscribers are used to executing long-running tasks on the some background thread so that it 
+What Schedulers means is where the code will actually be executed and usually and on what Thread. most of the cases Subscribers are used to executing long-running tasks on the some background thread so that it wouldn't block the main UI Thread. this is wspecially relevant on Android platform where we need to compute some data or wait on the **IO Thread** and show the results on the **MainThread**.
 
+The must used Schedulers are:
 
+Background operations: **Schedulers.io\(\)**
 
+MainThread operations: **AndroidSchedulers.mainThread\(\)**
 
+```
+Observable.just("Honda", "Yamaha")
+    .subscribeOn(Schedulers.io())   -> will compute on the io thread
+    .observeOn(AndroidSchedulers.mainThread())   -> return the result on the main thread
+```
+
+**Hardcore Tip**: we can use the compose\(\) method to create a pre created Transformer avoid write the subscribeOn and observeOn method we can use this transformer like so:
+
+```
+public static <T> Observable.Transformer<T, T> applyIOSchedulers() {
+    return observable -> observable
+                .subscribeOn(Schedulers.io())                   -> configure the io thread
+                .observeOn(AndroidSchedulers.mainThread());     -> configure the main thread 
+}
+```
+
+and this is how we is it:
+
+```
+ Observable.from(data)
+                .compose(YourTransformersClass.applyIOSchedulers())
+                ....
+```
+
+now we can enjoy the stream every time with Schedulers configured and save the boilerplate :\)
 
 ## Flowable
 
-
+Flowable has almost the same methods as Observable but this guy know's to deal with pressure of data, what it means that it let you process items that emitted faster from the source than some of the following steps 
 
