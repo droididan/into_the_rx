@@ -101,5 +101,47 @@ now we can enjoy the stream every time with Schedulers configured and save the b
 
 ## Flowable
 
-Flowable has almost the same methods as Observable but this guy know's to deal with pressure of data, what it means that it let you process items that emitted faster from the source than some of the following steps 
+Flowable has almost the same methods as Observable but this guy know's to deal with pressure of data, what it means that it let you process items that emitted faster from the source of data. 
+
+Assume that you have a source that can emit a million items per second. However, the nextstep uses those items to do a network request. We know, for sure, that we cannot do more than 50 requests per second: 
+
+Clearly, the problem here is that the available memory will be exhausted and the programming will fail with an **OutOfMemory \(OOM\)** exception.
+
+to avoid these situations the Observable can be converted to Flowable with to **.toFlowable\(\) **method.
+
+```
+observable.toFlowable(BackpressureStrategy.MISSING)
+                .observeOn(Schedulers.io())
+                .subscribe()
+```
+
+so, when to use the big brother?
+
+* when you deal with 10k+ elements that are generated in some fashion somewhere and thus chain can tell the source to limit the amount it generates
+* reading from database or from the disk
+
+types of BackpressureStrategy:
+
+| [`BUFFER`](http://reactivex.io/RxJava/2.x/javadoc/io/reactivex/BackpressureStrategy.html#BUFFER)Buffers_all_onNext values until the downstream consumes it. |
+| :--- |
+
+
+| [`DROP`](http://reactivex.io/RxJava/2.x/javadoc/io/reactivex/BackpressureStrategy.html#DROP)Drops the most recent onNext value if the downstream can't keep up. |
+| :--- |
+| [`ERROR`](http://reactivex.io/RxJava/2.x/javadoc/io/reactivex/BackpressureStrategy.html#ERROR)Signals a MissingBackpressureException in case the downstream can't keep up. |
+| [`LATEST`](http://reactivex.io/RxJava/2.x/javadoc/io/reactivex/BackpressureStrategy.html#LATEST)Keeps only the latest onNext value, overwriting any previous value if the downstream can't keep up. |
+| [`MISSING`](http://reactivex.io/RxJava/2.x/javadoc/io/reactivex/BackpressureStrategy.html#MISSING)OnNext events are written without any buffering or dropping. |
+
+when there is a situation of dropping items we can also call the **.sample\(\). **it will emit items only periodically, and it will take only the last value that's available.
+
+```
+observable.toFlowable(BackpressureStrategy.MISSING).sample(10, TimeUnit.MILLISECONDS)
+        .observeOn(Schedulers.computation()).subscribe(v -> log("s", v.toString()), this::log);
+```
+
+## Other "Stream" types
+
+###### 
+
+
 
