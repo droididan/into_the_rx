@@ -1,6 +1,6 @@
 # Understanding the Basics of RxAndroid
 
-before we start writing our reactive app lets first understand the basics of Rx and what it is?
+Before we start writing our reactive app lets first understand the basics of Rx and what it is?
 
 Rx is about reacting to results. It might be an item that originated from some source. It can also be an error. Rx provides a framework to handle these items in a reactive way and to create complicated manipulation on data. for example if we want to wait for an arrival of an item, or combine multipule sources into one stream of data \(network and local for example\).
 
@@ -101,9 +101,9 @@ now we can enjoy the stream every time with Schedulers configured and save the b
 
 ## Flowable
 
-Flowable has almost the same methods as Observable but this guy know's to deal with pressure of data, what it means that it let you process items that emitted faster from the source of data. 
+Flowable has almost the same methods as Observable but this guy know's to deal with pressure of data, what it means that it let you process items that emitted faster from the source of data.
 
-Assume that you have a source that can emit a million items per second. However, the nextstep uses those items to do a network request. We know, for sure, that we cannot do more than 50 requests per second: 
+Assume that you have a source that can emit a million items per second. However, the nextstep uses those items to do a network request. We know, for sure, that we cannot do more than 50 requests per second:
 
 Clearly, the problem here is that the available memory will be exhausted and the programming will fail with an **OutOfMemory \(OOM\)** exception.
 
@@ -122,7 +122,7 @@ so, when to use the big brother?
 
 types of BackpressureStrategy:
 
-| [`BUFFER`](http://reactivex.io/RxJava/2.x/javadoc/io/reactivex/BackpressureStrategy.html#BUFFER)Buffers_all_onNext values until the downstream consumes it. |
+| [`BUFFER`](http://reactivex.io/RxJava/2.x/javadoc/io/reactivex/BackpressureStrategy.html#BUFFER)Buffers\_all\_onNext values until the downstream consumes it. |
 | :--- |
 
 
@@ -135,13 +135,49 @@ types of BackpressureStrategy:
 when there is a situation of dropping items we can also call the **.sample\(\). **it will emit items only periodically, and it will take only the last value that's available.
 
 ```
-observable.toFlowable(BackpressureStrategy.MISSING).sample(10, TimeUnit.MILLISECONDS)
-        .observeOn(Schedulers.computation()).subscribe(v -> log("s", v.toString()), this::log);
+observable.toFlowable(BackpressureStrategy.MISSING)
+.sample(10, TimeUnit.MILLISECONDS)
+        .observeOn(Schedulers.computation())
+.subscribe(v -> log("s", v.toString()), this::log);
 ```
 
 ## Other "Stream" types
 
-###### 
+* **Single**: provide a way to represnt an Observable that will return just a single item. can be used when fetching data from the internet with Retrofit for example.
 
+```
+@GET("my/api/") Single<MyData> getMyData();
+```
 
+and can be created with the following:
+
+```
+Single.just("Single item")
+        .subscribe((item) -> {
+            // some action with $item
+        }, (error) -> {
+            // some action with $error
+        })
+```
+
+* **Completable: **returns OnComplete and onError. it's good to use when you just want to know that you finished the task for example when you shut down the notification on your app.
+
+```
+ Completable completable = Completable.fromAction(() -> {
+   // do something
+ })
+
+ // subscribe
+ completable.subscribe()) -> {
+     // finished
+ }, error -> {
+     log(error)
+ })
+```
+
+* **Maybe: **can only complete or fail without return any value, just like Completable but can also return an item such as single.
+
+**TODO Example**
+
+**TODO: Summery **
 
