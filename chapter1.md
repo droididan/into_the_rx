@@ -51,7 +51,7 @@ Disposable disposable = Observable.just("Honda", "Yamaha")
 the only 2 methods we have in this interface are:
 
 * dispose\(\) - action to dispose the Observable.
-* isDisposed - return an Boolean if the Observable disposed or not.
+* isDisposed\(\) - returns a Boolean if the Observable disposed or not.
 
 if we want to group many Observables to a disposable we should the CompositeDisposable like so:
 
@@ -65,9 +65,9 @@ must of the time we will want to dispose on the **onDestroy** method of the **Ac
 
 ## Schedulers
 
-What Schedulers means is where the code will actually be executed and usually and on what Thread. most of the cases Subscribers are used to executing long-running tasks on the some background thread so that it wouldn't block the main UI Thread. this is wspecially relevant on Android platform where we need to compute some data or wait on the **IO Thread** and show the results on the **MainThread**.
+What Schedulers means is where the code will actually be executed and usually and on what Thread. most of the cases Subscribers are used to executing long-running tasks on the some background thread so that it wouldn't block the main UI Thread. this is especially relevant on Android platform where we need to compute some data or wait on the **IO Thread** and show the results on the **MainThread**.
 
-The must used Schedulers are:
+The most used Schedulers are:
 
 Background operations: **Schedulers.io\(\)**
 
@@ -164,7 +164,7 @@ Single.just("Single item")
 
 ```
  Completable completable = Completable.fromAction(() -> {
-   // do something
+   // do some action here...
  })
 
  // subscribe
@@ -176,6 +176,8 @@ Single.just("Single item")
 ```
 
 * **Maybe: **can only complete or fail without return any value, just like Completable but can also return an item such as single.
+
+
 
 **TODO Example**
 
