@@ -32,22 +32,23 @@ wrap everything into one big flow sound like a good idea, in cases like we often
 
 However before we dive to 30 meters lets start with the little brother called map that is easier to grasp.
 
-
-
 # Map
 
-The idea behind map is to transform one item to another by applying a function to each item. 
+The idea behind map is to transform one item to another by applying a function to each item.
 
 ```
 Observable.just("First", "Second")
-             .map { it.toInt }  
+             .map { it.toInt }
 ```
 
-This will convert all items to integers and change the flow type.
+This will convert all items to integers and change the flow type. To summarize .map\(\) takes an item and returns a different to be processed down the stream. the new type can be different type, different value or stay the same. let's say we just want to convert the items to upper case:
+
+```
+Observable.just("First", "Second")
+             .map { it.toUpperCase() }
+```
 
 * [ ] _**add here photo of map**_
-
- 
 
 
 
