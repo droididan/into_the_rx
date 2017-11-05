@@ -2,9 +2,9 @@
 
 Before we start writing our reactive app lets first understand the basics of Rx and what it is?
 
-Rx is about reacting to results. It might be an item that originated from some source. It can also be an error. Rx provides a framework to handle these items in a reactive way and to create complicated manipulation on data. for example if we want to wait for an arrival of an item, or combine multipule sources into one stream of data \(network and local for example\).
+Rx is about reacting to results. It might be an item that originated from some source. It can also be an error. RxAndroid provides a framework to handle these items in a reactive way and to create complicated manipulation on data. for example if we want to wait for an arrival of an item, or combine multipule sources into one stream of data \(network and local for example\).
 
-To achieve all that Rx use these core components:
+To achieve all that RxAndroid use these core components:
 
 * **Observables**
 * **Subscription**
@@ -176,8 +176,6 @@ Single.just("Single item")
 ```
 
 * **Maybe: **can only complete or fail without return any value, just like Completable but can also return an item such as single.
-
-
 
 **TODO Example**
 
