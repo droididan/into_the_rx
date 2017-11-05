@@ -48,7 +48,51 @@ Observable.just("First", "Second")
              .map { it.toUpperCase() }
 ```
 
-* [ ] _**add here photo of map**_
+* [ ] create better photo
+
+![](/assets/Screen Shot 2017-11-02 at 11.45.54.png)
+
+# 
+
+# SwitchMap
+
+
+
+# FlatMap
+
+# Concat
+
+# Zip
+
+# Merge
+
+# Filter
+
+# CombineLatest
+
+# FirstElement
+
+# And
+
+# Buffer
+
+# Cache
+
+# Cast
+
+# Defer
+
+# DistinctUntilChange
+
+
+
+
+
+
+
+
+
+
 
 
 
