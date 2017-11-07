@@ -1,10 +1,6 @@
 ![](/assets/river.jpg)
 
-
-
-
-
-#                               Into The Reactive Streams
+# Into The Streams
 
 
 
@@ -26,5 +22,5 @@
 
 
 
-by Idan Ayalon
+Writer: **Idan Ayalon**
 
